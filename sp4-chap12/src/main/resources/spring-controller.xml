@@ -16,4 +16,8 @@
 	
 	<bean class="survey.SurveyController" />
 	
+	<bean class="controller.LoginController">
+		<property name="authService" ref="authService" />
+	</bean>
+	
 </beans>		

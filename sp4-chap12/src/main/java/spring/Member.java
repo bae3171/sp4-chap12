@@ -68,4 +68,8 @@ public class Member {
 		}
 		this.password = newPassword;
 	}
+	
+	public boolean matchPassword(String pwd) {
+		return this.password.equals(pwd);
+	}
 }
