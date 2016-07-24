@@ -22,4 +22,7 @@
 	
 	<bean class="controller.LogoutController" />
 	
+	<bean class="controller.ChangePwdController">
+		<property name="changePasswordService" ref="changePwdSvc" />
+	</bean>
 </beans>		
