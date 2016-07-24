@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String submit(LoginCommand loginCommand, Errors errors) {
+	public String submit(LoginCommand loginCommand, Errors errors, HttpSession session) {
 		new LoginCommandValidator().validate(loginCommand, errors);
 		if (errors.hasErrors()) {
 			return "login/loginForm";
@@ -39,6 +41,10 @@ public class LoginController {
 		
 		try {
 			AuthInfo authInfo = authService.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
+			
+			// 세션 추가
+			session.setAttribute("authInfo", authInfo);
+			
 			return "login/loginSuccess";
 		} catch (IdPasswordNotMatchingException e) {
 			errors.reject("idPasswordNotMatching");
